@@ -15,10 +15,10 @@ webpush.setVapidDetails(
 
 // This is the same output of calling JSON.stringify on a PushSubscription
 const pushSubscription = {
-  endpoint: '.....',
+  endpoint: 'https://fcm.googleapis.com/fcm/send/cCO9LK34Dcc:APA91bFZfM6SHLBN_mbfGCLNCUtkNhAcdGUn8wS31xq5ITMM40uOP_J8YAoD4oblMX7-fBkv3QiXczBXK2VAbvNvW7n96UWAcn0wkuOspCnZGqPjAyuOrA1V6zoUJ7LRUH7xkcc-pNw9',
   keys: {
-    auth: '.....',
-    p256dh: '.....'
+    auth: 'qg-6MjYS-9U0Zsc7eYlTSw',
+    p256dh: 'BOiIddco3SPyXmYGrpPo6wmi65ztvpcPWRqkRViMKS5NCZpKayecME8nfqocdHMNFqZSJWktFYvKwaZ4-bCaVmo'
   }
 };
 
