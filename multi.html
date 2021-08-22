@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="button is-success" onclick="openModal()">Multi Step Check</button>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close" onclick="closeModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <p>Some Text Here</p>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success" onclick="subscribe()" >Save changes</button>
+          </footer>
+        </div>
+    </div>
+    <script>
+        function openModal() {
+            const elm = document.getElementsByClassName('modal')[0]
+            console.log('HEHWHEH', elm)
+            elm.classList.add("is-active")
+        }
+
+        function closeModal() {
+            const elm = document.getElementsByClassName('modal')[0]
+            elm.classList.remove("is-active")
+        }
+
+      async function subscribe() {
+
+        // cehck browser type 
+        closeModal();
+        let sw = await navigator.serviceWorker.ready;
+        let push = await sw.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey:
+            'BBZY7Q3KEtZArAAWMLi_qzWHbH4vAoqPpIXnRhmlUaw0PVs1Kt_2fgLhuaVI5i8MWASBKx3d6W6UoH2U3qChw9U'
+        });
+        console.log(JSON.stringify(push));
+      }
+
+      if ('serviceWorker' in navigator) {
+        addEventListener('load', async () => {
+          let sw = await navigator.serviceWorker.register('./sw.js');
+          console.log(sw);
+        });
+      }
+    </script>
+  </body>
+</html>
