@@ -15,11 +15,17 @@ webpush.setVapidDetails(
 
 // This is the same output of calling JSON.stringify on a PushSubscription
 const pushSubscription = {
-  endpoint: 'https://fcm.googleapis.com/fcm/send/f_jbUmv1h9s:APA91bFRlZru7qXQKMPwuJO6xRNkfHcxRx1R0pn6eNt9qDf9PBR1F43UF9xxROct19p3AeMKRN4P7-DUlE3IzZISlio64VnU_L8yfHHbRPa5yoeRHNhSH7hgMWNb1SGhwO7LQmC4n24n',
+  endpoint: `https://fcm.googleapis.com/fcm/send/cyfKwv7n7Lw:APA91bEP8EDp9-YtWI6ET1c_Jy_svWABR2TeRetQ2LJW0xPVTq4S2i6CdjFVIxjAsO9IUoNnDrqqSxzeYYC6hB-lWOb8iYii_79BwVeRFZZyCM_ycQqAB5qBrTLDBVy-XPxJd-eebsBh`,
   keys: {
-    auth: 'hLP8wu7qsdcALj6Q8qX2lg',
-    p256dh: 'BBMIL5LY5heFDsUpZwFVCbUEvdVL1kat0FyskEp5s6vtYQ77wtljgcPqURGcuTLkHkz3nL18DJ_OmMb7mBGlB0c'
+    auth: 'FqmtFyAolxlY9TKXKrzCYg',
+    p256dh: 'BPRMH6itilnexYPAydgh36MakXhlshQXdNfNZSyFQuyp7C33QoRUf5cabagZVEEQEFVKZn-zLwvzOz6umEdjKlc'
   }
 };
 
-webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+webpush.sendNotification(pushSubscription, JSON.stringify({
+  icon: 'https://freeiconshop.com/wp-content/uploads/edd/notification-flat.png',
+  message: 'Check Out the New Apple Stocks',
+  data: {
+    url: 'https://www.youtube.com/'
+  }
+}));
