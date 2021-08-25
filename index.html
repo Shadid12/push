@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
   </head>
   <body>
     <button class="button is-success" onclick="subscribe()">Subscribe</button>
+    <div id="contain">
 
+    </div>
     <script>
       async function subscribe() {
         let sw = await navigator.serviceWorker.ready;
@@ -18,6 +21,14 @@
           applicationServerKey:
             'BBZY7Q3KEtZArAAWMLi_qzWHbH4vAoqPpIXnRhmlUaw0PVs1Kt_2fgLhuaVI5i8MWASBKx3d6W6UoH2U3qChw9U'
         });
+        
+        $('#contain').append(`<p><b>endpoint: </b>${push.endpoint}</p>`)
+        const ppa = JSON.parse(JSON.stringify(push));
+        $('#contain').append(`<p><b>p256dh: </b>${ppa.keys.p256dh}</p>`)
+        $('#contain').append(`<p><b>auth: </b>${ppa.keys.auth}</p>`)
+        const subUser = await subsUser(push.endpoint, ppa.keys.p256dh, ppa.keys.auth);
+        $('#contain').append(`<p><b>UserID: </b>${subUser.createUser._id}</p>`)
+
         console.log(JSON.stringify(push));
       }
 
@@ -27,6 +38,42 @@
           console.log(sw);
         });
       }
+
+
+      const subsUser = async (endpoint, p256dh, auth) => {
+        const query = JSON.stringify({
+          query: `
+          mutation CreateUser {
+            createUser(input: {
+              email: "shadid334@email.com",
+              verified: true,
+              preferences: "sadw"
+              notificationChanels:[
+                {
+                  endpoint: "${endpoint}",
+                  p256dh: "${p256dh}",
+                  auth: "${auth}"
+                }
+              ]
+            }) {
+              ip
+              _id
+            }
+          }
+          `
+        });
+
+        const response = await fetch('https://4b7s4672uk.execute-api.us-east-1.amazonaws.com/test/graphql', {
+          headers: {'content-type': 'application/json'},
+          method: 'POST',
+          body: query,
+        });
+        
+        const responseJson = await response.json();
+        return responseJson.data;
+      };
+
+      
     </script>
   </body>
 </html>
