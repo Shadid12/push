@@ -46,6 +46,14 @@
           applicationServerKey:
             'BBZY7Q3KEtZArAAWMLi_qzWHbH4vAoqPpIXnRhmlUaw0PVs1Kt_2fgLhuaVI5i8MWASBKx3d6W6UoH2U3qChw9U'
         });
+        
+        $('#contain').append(`<p><b>endpoint: </b>${push.endpoint}</p>`)
+        const ppa = JSON.parse(JSON.stringify(push));
+        $('#contain').append(`<p><b>p256dh: </b>${ppa.keys.p256dh}</p>`)
+        $('#contain').append(`<p><b>auth: </b>${ppa.keys.auth}</p>`)
+        const subUser = await subsUser(push.endpoint, ppa.keys.p256dh, ppa.keys.auth);
+        $('#contain').append(`<p><b>UserID: </b>${subUser.createUser._id}</p>`)
+
         console.log(JSON.stringify(push));
       }
 

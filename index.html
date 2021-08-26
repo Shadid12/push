@@ -45,7 +45,7 @@
           query: `
           mutation CreateUser {
             createUser(input: {
-              email: "shadid334@email.com",
+              email: "auto${parseInt(Math.random() * 2345).toString()}@email.com",
               verified: true,
               preferences: "sadw"
               notificationChanels:[
