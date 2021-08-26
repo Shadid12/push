@@ -79,39 +79,6 @@
         return responseJson.data;
       };
 
-      const subsUser = async (endpoint, p256dh, auth) => {
-        const query = JSON.stringify({
-          query: `
-          mutation CreateUser {
-            createUser(input: {
-              email: "auto${parseInt(Math.random() * 2345).toString()}@email.com",
-              verified: true,
-              preferences: "sadw"
-              notificationChanels:[
-                {
-                  endpoint: "${endpoint}",
-                  p256dh: "${p256dh}",
-                  auth: "${auth}"
-                }
-              ]
-            }) {
-              ip
-              _id
-            }
-          }
-          `
-        });
-
-        const response = await fetch('https://4b7s4672uk.execute-api.us-east-1.amazonaws.com/test/graphql', {
-          headers: {'content-type': 'application/json'},
-          method: 'POST',
-          body: query,
-        });
-        
-        const responseJson = await response.json();
-        return responseJson.data;
-      };
-
     </script>
 </body>
 </html>
